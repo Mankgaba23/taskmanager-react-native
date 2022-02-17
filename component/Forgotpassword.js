@@ -1,53 +1,84 @@
-import React, { component, useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, email, password, handlePress } from 'react-native';
+import React, { Component, useState } from 'react';
+import { View, Text, StyleSheet, TextInput,Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { resertPassword } from '../service';
+import { resetPassword } from '../services';
 
-const Forgotpassword = ({ navigation }) => {
-    const [email, setEmail] = useState("")
-    const reset = () => {
-        resertPassword(email)
-        console.log(email);
-    }
+// create a component
+const forgotPassword = ({ navigation }) => {
+   const [email, setEmail] = useState('')
+const reset = () =>{
+    resetPassword(email)
+    setEmail('')
+    alert("An email link has been sent to " + email + " to reset your password")
+    navigation.navigate("Login")
+}
 
     return (
-        <View style={styles.container}>
-            <Image
-                style={{ width: '100%', height: 300 }}
-                source={require('../assets/task.png')}
-                resizeMode="contain"
-            />
-            <Text style={{ fontSize: 30, fontWeight: 'bold' }}>Reset your Password</Text>
+       <View style={styles.container}>
+          <Image source={require('../assets/task.png')} style={styles.LogoImg}resizeMode="contain" />
+          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Forgot your password</Text>
+          <Text style={styles.text}
+          >Enter an email to reset your password</Text>
 
-            <Text style={{ fontSize: 20, color: 'gold' }}
-    
-            >Enter an email address and we will you a reset password link </Text>
+          <TextInput
+             style={styles.formInpu1}
+             placeholder="Enter your email"
+             autoCapitalize="none"
+             value={email}
+             onChangeText={(email) => setEmail(email)}
+          />
 
-            <TextInput
-                style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                placeholder="Enter your email"
-                autoCapitalize="none"
-                value={email}
-                onChangeText={(email) => setEmail(email)}
-            />
+          <TouchableOpacity style={styles.buton1} onPress={reset}>
+             <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity style={{ padding: 10, width: 300, borderRadius: 20, backgroundColor: 'gold', marginHorizontal: 2 }}
-                onPress={reset}>
-                  
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 18 }}>Reset</Text>
-            </TouchableOpacity>
-        </View>
+       </View>
     );
-};
+}; 
 
-
+// define your styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        buttonText: 'center',
-        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+    },
+    LogoImg: {
+      marginBottom: 50,
+      height: 150,
+      width: '100%',
+      
+   },
+    formInpu1:{
+        borderColor: 'gold',
+        borderWidth:2,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingHorizontal: 50,
+        paddingVertical: 12,
+        borderRadius: 12,
+        elevation: 3,
+        margin:5,
+    },
+    buton1: {
+
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 50,
+        borderRadius: 10,
+        elevation: 3,
+        backgroundColor: 'gold',
+        height: 40,
+        width: 260,
+        borderColor: 'yellow',
+        borderWidth:2,
+        margin:5,
+        flex: 1,
+     
     },
 });
-export default Forgotpassword;
+
+
+export default forgotPassword

@@ -1,127 +1,145 @@
-import React, { component, useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, email, password, Alert } from 'react-native';
+import React, {Component, useState} from 'react';
+import { StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { registration } from '../service';
-import firebase from '../config/firebaseConfig';
+import { NativeScreenContainer } from '@react-navigation/native';
+import { registration } from '../services';
 
+const signup = ({navigation}) => {
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const [passwordconf, setPasswordconf] = useState('');
+   const [firstname, setFirstname] = useState('');
+   const [lastname, setLastname] = useState('');
 
-const Signup = ({ navigation }) => {
-    const [firstName, setFirstname] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+   const handlePress = () => {
+       if (!firstname) {
+         alert('Please enter your first name.');
+       }
+       if (!email) {
+         alert('Please enter your email.');
+       }
+       if (!password) {
+         alert('Please enter your password.');
+       }
+       if (!passwordconf) {
+         alert('Please confirm your password.');
+       }
+       if(firstname && email && password && passwordconf) {
+         registration(email, password, lastname, firstname)
+         navigation.navigate('homeScreen');
+         setFirstname('');
+         setLastname('');
+         setEmail('');
+         setPassword('');
+         setPasswordconf('');
+       };
 
-    const emptyState = () => {
-        setFirstname('');
-        setLastName('');
-        setEmail('');
-        setPassword('');
-        setConfirmPassword('');
-    };
-
-    const handlePress = () => {
-        if (!firstName) {
-            Alert.alert('firstname is required');
-        } else if (!email) {
-            Alert.alert('email is required');
-        } else if (!password) {
-            Alert.alert('password is required');
-        } else if (!confirmPassword) {
-            setPassword('');
-            Alert.alert('confirm password is required');
-        } else if (password !== confirmPassword) {
-            Alert.alert('password does not match!');
-        } else {
-            registration(
-                email,
-                password,
-                lastName,
-                firstName,
-            );
-            navigation.navigate('Homescreen');
-            emptyState();
-           }
-    };
-
-    return (
-        <SafeAreaView>
-            <View style={styles.container}>
-                <Image
-                    style={{ width: '100%', height: 300 }}
-                    source={require('../assets/task.png')}
-                    resizeMode="contain"
-                />
-
-                <Text style={{ fontSize: 20, color: 'gold', fontWeight: 'bold' }}>Create an account:</Text>
-
-                <TextInput
-                    style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                    placeholder="FirstName"
-                    autoCapitalize="none"
-                    value={firstName}
-                    require
-                    onChangeText={(firstName) => setFirstname(firstName)}
-                />
-                <TextInput
-                    style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                    placeholder="LastName"
-                    autoCapitalize="none"
-                    value={lastName}
-
-                    onChangeText={(lastName) => setLastName(lastName)}
-
-                />
-                <TextInput
-
-                    style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                    placeholder="Enter your Email"
-                    value={email}
-                    require
-                    onChangeText={(email) => setEmail(email)}
-
-                />
-                <TextInput
-                    style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                    placeholder="Enter your password"
-                    require
-                    onChangeText={(password) => setPassword(password)}
-                    secureTextEntry={true}
-                />
-                <TextInput
-                    style={{ padding: 10, width: 300, borderRadius: 30, backgroundColor: 'white', marginHorizontal: 2 }}
-                    placeholder="Retype your Password"
-                    value={confirmPassword}
-                    onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-                    secureTextEntry={true}
-                />
-
-                <TouchableOpacity style={{ padding: 10, width: 300, borderRadius: 20, backgroundColor: 'gold', marginHorizontal: 2 }}
-                    onPress={handlePress}>
-                    <Text style={{ textAlign: 'center', color: 'black', fontSize: 18 }}>Signup</Text>
-                </TouchableOpacity>
-
-                <Text style={{ fontSize: 10, fontWeight: 'bold' }}> Already have an account?</Text>
-
-                <TouchableOpacity style={{ padding: 10, width: 300, borderRadius: 20, backgroundColor: 'red', marginHorizontal: 2 }}
-                    onPress={() => navigation.navigate('Login')}>
-                    <Text style={{ textAlign: 'center', color: 'pink', fontSize: 18 }}>Login</Text>
-                </TouchableOpacity>
-
-
+       
+      
+      
+     };
+      return (
+         <View style = {styles.container}>
+            <Image source = {require('../assets/task.png')}style={{height:100,width:'100%',marginBottom: 50 }}resizeMode="contain" />
+            <Text style = {styles.BoldWeight}>Create an account</Text>
+            <TextInput
+                style={styles.Input}
+                placeholder="First name*"
+                autoCapitalize="none"
+                value={firstname}
+                onChangeText={(firstname) => setFirstname(firstname)}
+            />
+            <TextInput
+                style={styles.Input}
+                placeholder="Last name"
+                autoCapitalize="none"
+                value={lastname}
+                onChangeText={(lastname) => setLastname(lastname)}
+            />
+            <TextInput
+                style={styles.Input}
+                placeholder="Enter your email*"
+                autoCapitalize="none"
+                value={email}
+                onChangeText={(email) => setEmail(email)}
+            />
+            <TextInput
+                style={styles.Input}
+                placeholder="Enter your password*"
+                value={password}
+                onChangeText={(password) => setPassword(password)}
+                secureTextEntry={true}
+            />
+            <TextInput
+                style={styles.Input}
+                placeholder="Retype your password to confirm*"
+                value={passwordconf}
+                onChangeText={(passwordconf) => setPasswordconf(passwordconf)}
+                secureTextEntry={true}
+            />
+            <TouchableOpacity style = {styles.Btnsign} onPress={handlePress}>
+               <Text style = {styles.TxtColor}>Sign Up</Text>
+            </TouchableOpacity>
+            <View style={{flexDirection:'row'}}>
+            <Text>Already have an account?</Text>
+            <TouchableOpacity style = {{}} onPress = {() => navigation.navigate('Login')}>
+            
+               <Text style = {{color:'red'}}>Sign In</Text>
+            </TouchableOpacity>
             </View>
-        </SafeAreaView>
-    );
-};
+         </View>
+      );
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        buttonText: 'center',
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+   container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   Input: {
+      margin: 5,
+      height: 40,
+      width: 300,
+      borderColor: 'gold',
+      borderRadius: 10,
+      borderWidth: 2,
+      backgroundColor:'yellow',
+      paddingHorizontal: 15,
+    paddingVertical: 10,
+   },
+  
+   Btnsign: {
+      flex: 1,
+      padding: 10,
+      margin: 10,
+      backgroundColor: 'gold',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderColor: 'gold',
+      borderRadius: 10,
+      borderWidth: 2,
+      textAlign: 'center',
+      height: 40,
+      width: 300,
+   },
+  
+   TxtColor: {
+      color: 'black',
+      fontSize: 20,
+   },
+   InlineBtns: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+   },
+   BoldWeight: {
+      fontWeight: 'bold',
+      fontSize: 30,
+      paddingBottom: 30,
+      color: 'gray',
+   },
+ 
 });
-export default Signup;
+
+export default signup

@@ -1,28 +1,34 @@
-import React, { component,useState } from 'react';
-import { StyleSheet, Text, View ,button , TextInput,email ,password ,handlePress } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { color } from 'react-native-reanimated';
-
-
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import {email} from './forgotPassword';
+// create a component
 const resetPassword = ({ navigation }) => {
 
 
     return (
         <View style={styles.container}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Welcome Back</Text>
-            <Text style={styles.text }>resetPassword:</Text>
-
+            <Image source={require('../assets/task.png')} style={styles.LogoImg} />
+            <Text style={styles.text}>An reset link was been sent to your email</Text>
         </View>
     );
 };
 
+// define your styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        buttonText: 'center',
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#2c3e50',
     },
+    LogoImg: {
+        marginBottom: 50,
+        height: 100,
+        width: 100,
+        borderColor: 'green',
+        borderRadius: 75,
+        borderWidth: 2,
+     },
 });
+
 export default resetPassword;

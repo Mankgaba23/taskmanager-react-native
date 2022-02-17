@@ -1,27 +1,25 @@
-import React, { component, useEffect, useState } from 'react';
-import { StyleSheet, Text, View,ActivityIndicator } from 'react-native';
-
+import React, { useEffect } from 'react';
+import { StyleSheet, View, ActivityIndicator } from 'react-native';
+import firebase from '../config/firebaseConfig';
 require('firebase/auth')
-
-
-
 
 const loadingScreen = ({ navigation }) => {
     useEffect(
-        ()=>{firebase.auth().onAuthstateChanged((user)=>{
-            if (user){
-                navigation.replace('Homescreen');
-            }else{
-                navigation.replace('Welcome');
-            }
-        })}
+        () => {
+            firebase.auth().onAuthstateChanged((user) => {
+                if (user) {
+                    navigation.replace('Homescreen');
+                } else {
+                    navigation.replace('Welcome');
+                }
+            })
+        }
     )
 
 
     return (
         <View style={styles.container}>
-            <ActivityIndicator size =  'large'/>
-            
+            <ActivityIndicator size='large' />
         </View>
     );
 };

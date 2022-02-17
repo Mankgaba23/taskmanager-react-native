@@ -6,8 +6,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Welcome from './component/Welcome';
 import Login from './component/Login';
 import Signup from './component/Signup';
-import Forgotpassword from './component/Forgotpassword';
-import Homescreen from './component/Homescreen';
+import forgotPassword from './component/forgotPassword';
+import homeScreen from './component/homeScreen';
 import resetPassword from './component/resetPassword';
 import Profile from './component/Profile';
 
@@ -22,10 +22,10 @@ export default function App() {
         <Stack.Screen name="Welcome" component={Welcome} option={{ headershown: false }} />
         <Stack.Screen name="Login" component={Login} option={{ headershown: false }} />
         <Stack.Screen name="Signup" component={Signup} option={{ headershown: false }} />
-        <Stack.Screen name="Homescreen" component={Homescreen} option={{ headershown: false }} />
-        <Stack.Screen name="Forgotpassword" component={Forgotpassword} option={{ headershown: false }} />
+        <Stack.Screen name="homeScreen" component={homeScreen} option={{ headershown: false }} />
+        <Stack.Screen name="forgotPassword" component={forgotPassword} option={{ headershown: false }} />
         <Stack.Screen name="resetPassword" component={resetPassword} option={{ headershown: false }} />
-        <Stack.Screen name="profile" component={Profile} option={{ headershown: false }} />
+        <Stack.Screen name="Profile" component={Profile} option={{ headershown: false }} />
         
       </Stack.Navigator>
     </NavigationContainer>
@@ -35,7 +35,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },
